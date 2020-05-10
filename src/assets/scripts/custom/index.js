@@ -118,17 +118,19 @@ function processData(t) {
       sum += parseInt(el.value)/n
       gas += parseInt(el.gasUsed)  //* parseInt(el.gasPrice)
     }
-    gas = 0.000000001 * gas 
+    gas = 0.000000001 * gas
 
     var all = groupByDay(rewards);
     var groupedByDate = all[0]
     var allWallets = all[1]
 
     var rewardsData = getRewardsData(groupedByDate)
+    var lastRewards = rewardsData.slice(-20).reverse(); //last 20 by day
+    var lastTransactions = rewards.slice(-20).reverse() // last 20
     var walletsData = getWalletsData(groupedByDate)
 
     displayRewardsGraph(rewardsData,walletsData);
-    displayTable(rewardsData);
+    displayTables(lastRewards,lastTransactions);
 
     $("#rewards").text(rewards.length.toLocaleString())
     $("#wallets").text(allWallets.size.toLocaleString())
@@ -147,11 +149,21 @@ function processData(t) {
 
 }
 
-function displayTable(t) {
-    let e = t.slice().reverse();
+
+function displayTables(e,t) {
+    // let e = t.slice(-20).reverse();
     for (var a of e){
       let t = a.x.toLocaleDateString();
-      $("#table").append("<tr><td>" + t + "</td><td>" + a.y + "</td></tr>")
+      $("#rewardsTable").append("<tr><td>" + t + "</td><td>" + a.y + "</td></tr>")
+    }
+
+    for (var a of t){
+      let d = new Date(1e3 * a.timeStamp).toLocaleDateString();
+      let v = a.value / 1e18
+      let h = a.hash.substring(a.hash.length - 15)
+      let b = a.blockNumber
+      let link = '<a href="https://etherscan.io/tx/' + a.hash + '" target="_blank">&#128279;</a>'
+      $("#transactionsTable").append("<tr><td>" + d + "</td><td>" + v + "</td><td>" + b + "</td><td>" + h + "</td><td>" + link + "</td></tr>")
     }
 }
 
