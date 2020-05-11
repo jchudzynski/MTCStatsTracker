@@ -160,7 +160,7 @@ function displayTables(e,t) {
     for (var a of t){
       let d = new Date(1e3 * a.timeStamp).toLocaleDateString();
       let v = a.value / 1e18
-      let h = a.hash.substring(a.hash.length - 15)
+      let h = a.hash.substring(a.hash.length - 20)
       let b = a.blockNumber
       let link = '<a href="https://etherscan.io/tx/' + a.hash + '" target="_blank">&#128279;</a>'
       $("#transactionsTable").append("<tr><td>" + d + "</td><td>" + v + "</td><td>" + b + "</td><td>" + h + "</td><td>" + link + "</td></tr>")
@@ -274,7 +274,12 @@ function groupByDay(t) {
   return [result,allWallets];
 }
 
+
 function getWebsiteRewards(){
+  $.getJSON("http://izotx.com/doc.php",(data)=>{
+    console.log(data);  
+  })
+
   return new Promise((a,r)=>{
     let origin = 'https://api.allorigins.win/get?url='
     let origin2 = 'http://www.whateverorigin.org/get?url='
