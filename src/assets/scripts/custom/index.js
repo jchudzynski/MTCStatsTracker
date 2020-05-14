@@ -118,17 +118,19 @@ function processData(t) {
       sum += parseInt(el.value)/n
       gas += parseInt(el.gasUsed)  //* parseInt(el.gasPrice)
     }
-    gas = 0.000000001 * gas 
+    gas = 0.000000001 * gas
 
     var all = groupByDay(rewards);
     var groupedByDate = all[0]
     var allWallets = all[1]
 
     var rewardsData = getRewardsData(groupedByDate)
+    var lastRewards = rewardsData.slice(-20).reverse(); //last 20 by day
+    var lastTransactions = rewards.slice(-20).reverse() // last 20
     var walletsData = getWalletsData(groupedByDate)
 
     displayRewardsGraph(rewardsData,walletsData);
-    displayTable(rewardsData);
+    displayTables(lastRewards,lastTransactions);
 
     $("#rewards").text(rewards.length.toLocaleString())
     $("#wallets").text(allWallets.size.toLocaleString())
@@ -136,10 +138,12 @@ function processData(t) {
     $("#gasUsedSum").text(gas.toLocaleString() + " ETH")
 
     getWebsiteRewards().then((data)=>{
-      let doc_difference = data - impacted_lives
+      let doc_difference = data.all_lives - impacted_lives
       let blockchain_difference = rewards.length - rewards_count
 
-      $("#impacted_lives").text(data.toLocaleString())
+      $("#impacted_lives").text(data.all_lives.toLocaleString())
+      $("#impacted_lives_yesterday").text(data.lives_yesterday.toLocaleString())
+      $("#impacted_lives_today").text(data.lives_today.toLocaleString())
       $("#notRewarded").text((doc_difference - blockchain_difference).toLocaleString())
 
     })
@@ -147,17 +151,29 @@ function processData(t) {
 
 }
 
-function displayTable(t) {
-    let e = t.slice().reverse();
+
+function displayTables(e,t) {
+    // let e = t.slice(-20).reverse();
     for (var a of e){
       let t = a.x.toLocaleDateString();
-      $("#table").append("<tr><td>" + t + "</td><td>" + a.y + "</td></tr>")
+      $("#rewardsTable").append("<tr><td>" + t + "</td><td>" + a.y + "</td></tr>")
+    }
+
+    for (var a of t){
+      let d = new Date(1e3 * a.timeStamp).toLocaleDateString();
+      let t = moment.unix(a.timeStamp).format("HH:mm:ss")
+      let v = a.value / 1e18
+      let h = a.hash.substring(a.hash.length - 20)
+      let b = a.blockNumber
+      let link = '<a href="https://etherscan.io/tx/' + a.hash + '" target="_blank">&#128279;</a>'
+      $("#transactionsTable").append("<tr><td>" + d + "</td><td>" + t + "</td><td>" + v + " MTC</td><td>" + link + "</td></tr>")
     }
 }
 
 function displayRewardsGraph(t,w) {
 
     var e = document.getElementById("rewardsChart").getContext("2d");
+    
     new Chart(e, {
         type: "bar",
         data: {
@@ -182,6 +198,8 @@ function displayRewardsGraph(t,w) {
           ]
         },
         options: {
+            responsive: true,
+            maintainAspectRatio: false,
             scales: {
                 xAxes: [{
                     type: "time",
@@ -262,7 +280,33 @@ function groupByDay(t) {
   return [result,allWallets];
 }
 
+
 function getWebsiteRewards(){
+  return new Promise((a,r)=>{
+    let getUrl = 'http://izotx.com/service/il_get.php'
+    let setUrl = 'http://izotx.com/service/il_set.php'
+
+    $.getJSON(setUrl,(data)=>{
+
+    })
+
+    $.getJSON(getUrl, function(data){
+      if(data){
+        a(data)
+      }
+      else{
+        r();
+      }
+    });
+  })
+}
+
+//NOTE: currently unused  keeping it here as a backup
+function getWebsiteRewardsFromOrigin(){
+  // $.getJSON("http://izotx.com/doc.php",(data)=>{
+  //   console.log(data);
+  // })
+
   return new Promise((a,r)=>{
     let origin = 'https://api.allorigins.win/get?url='
     let origin2 = 'http://www.whateverorigin.org/get?url='
@@ -276,6 +320,7 @@ function getWebsiteRewards(){
 
 
 }
+
 
 function startProcessing() {
   let blocks = data.blocks
