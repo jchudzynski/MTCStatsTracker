@@ -187,31 +187,34 @@
                 <div class="row">
 
                   <!-- #Toatl Visits ==================== -->
-                  <div class='col-md-4'>
+                  <div class='col-md-6'>
                     <div class="layers bd bgc-white p-20">
                       <div class="layer w-100 mB-10">
                         <h6 class="lh-1">Impacted Lives</h6>
                       </div>
-                      <div class="layer w-100">
-                        <div class="peers ai-sb fxw-nw">
-                          <div class="peer peer-greed">
-                            <span id="sparklinedash"></span>
-                          </div>
-                          <div class="peer">
-                          </div>
-                          <div class="peer">
-                            <span id="impacted_lives" class="d-ib lh-0 va-m fw-600  c-green-500"></span>
-                          </div>
-                        </div>
-                      </div>
+                      <table class="table table-bordered">
+                          <thead><tr><th>Today</th><th>Yesterday</th><th>All</th><th>Not Rewarded *</th></tr></thead>
+                         <tbody>
+                           <tr><td><span id="impacted_lives_today" class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15 bgc-green-50 c-green-500"></span></td>
+                             <td><span id="impacted_lives_yesterday" class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15 bgc-green-50 c-green-500"></span></td>
+                             <td> <span id="impacted_lives" class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15 bgc-green-50 c-green-500"> </span></td>
+                             <td> <span id="notRewarded" class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15 bgc-red-50 c-red-500"> </span></td>
+                           </tr>
+                         </tbody>
+                      </table>
+                      *Patients contacted doc.com but not rewarded with MTC since 6th of May 2020
+
                     </div>
+
                   </div>
 
-                  <!-- #Total Page Views ==================== -->
-                  <div class='col-md-4'>
+                <div class="col-md-6">
+                  <div class="row">
+                  <!-- #Wallets ==================== -->
+                  <div class='col-md-6'>
                     <div class="layers bd bgc-white p-20">
                       <div class="layer w-100 mB-10">
-                        <h6 class="lh-1">Number of Wallets</h6>
+                        <h6 class="lh-1">Wallets</h6>
                       </div>
                       <div class="layer w-100">
                         <div class="peers ai-sb fxw-nw">
@@ -227,7 +230,7 @@
                   </div>
 
                   <!-- #Bounce Rate ==================== -->
-                  <div class='col-md-4'>
+                  <div class='col-md-6'>
                     <div class="layers bd bgc-white p-20">
                       <div class="layer w-100 mB-10">
                         <h6 class="lh-1">Number of times rewards given</h6>
@@ -238,33 +241,20 @@
                             <span id="sparklinedash4"></span>
                           </div>
                           <div class="peer">
-                            <span id="rewards" class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15 bgc-blue-50 c-blue-500">33%</span>
+                            <span id="rewards" class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15 bgc-blue-50 c-blue-500"></span>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
 
-                  <!-- #Unique Visitors ==================== -->
-                  <div class='col-md-4'>
-                    <div class="layers bd bgc-white p-20">
-                      <div class="layer w-100 mB-10">
-                        <h6 class="lh-1">Not Rewarded *</h6>
-                      </div>
-                      <div class="layer w-100">
-                        <div class="peers ai-sb fxw-nw">
-                            <span class="pX-15"> *Patients contacted doc.com but not rewarded with MTC since 6th of May 2020 </span>
-                          <div class="peer">
-                            <span id="notRewarded" class="d-ib lh-0 va-m fw-600 bdrs-10em pX-10 pY-15 bgc-red-50 c-red-500"></span>
-                          </div>
+                <!-- </div> -->
+              <!-- </div>
+            </div> -->
 
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
+            <!-- <div class="row"> -->
                   <!-- #MTC Awarded ==================== -->
-                  <div class='col-md-4'>
+                  <div class='col-md-6'>
                     <div class="layers bd bgc-white p-20">
                       <div class="layer w-100 mB-10">
                         <h6 class="lh-1">MTC Awarded</h6>
@@ -275,7 +265,7 @@
                             <span id="sparklinedash4"></span>
                           </div>
                           <div class="peer">
-                            <span id="mtcRewardsSum" class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15 bgc-blue-50 c-blue-500">33%</span>
+                            <span id="mtcRewardsSum" class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15 bgc-blue-50 c-blue-500"></span>
                           </div>
                         </div>
                       </div>
@@ -283,7 +273,7 @@
                   </div>
 
                   <!-- #MTC Awarded ==================== -->
-                  <div class='col-md-4'>
+                  <div class='col-md-6'>
                     <div class="layers bd bgc-white p-20">
                       <div class="layer w-100 mB-10">
                         <h6 class="lh-1">Gas Used</h6>
@@ -294,13 +284,15 @@
                             <span id="sparklinedash4"></span>
                           </div>
                           <div class="peer">
-                            <span id="gasUsedSum" class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15 bgc-blue-50 c-blue-500">33%</span>
+                            <span id="gasUsedSum" class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15 bgc-blue-50 c-blue-500"></span>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
+              </div>
+            </div>
                 <!-- end of row -->
               <div class="row">
               <div class="col-md-12">
@@ -314,7 +306,7 @@
                         </div>
                         <div class="layer w-100">
 
-                          <canvas id="rewardsChart" height="150px"></canvas>
+                          <canvas id="rewardsChart" height="350px"></canvas>
                         </div>
                       </div>
                     </div>
@@ -361,6 +353,7 @@
                   </div>
                 </div>
               </div>
+            </div>
 
               <div class="row">
               <div class="col-md-12">

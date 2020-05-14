@@ -138,10 +138,12 @@ function processData(t) {
     $("#gasUsedSum").text(gas.toLocaleString() + " ETH")
 
     getWebsiteRewards().then((data)=>{
-      let doc_difference = data - impacted_lives
+      let doc_difference = data.all_lives - impacted_lives
       let blockchain_difference = rewards.length - rewards_count
 
-      $("#impacted_lives").text(data.toLocaleString())
+      $("#impacted_lives").text(data.all_lives.toLocaleString())
+      $("#impacted_lives_yesterday").text(data.lives_yesterday.toLocaleString())
+      $("#impacted_lives_today").text(data.lives_today.toLocaleString())
       $("#notRewarded").text((doc_difference - blockchain_difference).toLocaleString())
 
     })
@@ -171,6 +173,7 @@ function displayTables(e,t) {
 function displayRewardsGraph(t,w) {
 
     var e = document.getElementById("rewardsChart").getContext("2d");
+    
     new Chart(e, {
         type: "bar",
         data: {
@@ -195,6 +198,8 @@ function displayRewardsGraph(t,w) {
           ]
         },
         options: {
+            responsive: true,
+            maintainAspectRatio: false,
             scales: {
                 xAxes: [{
                     type: "time",
@@ -277,9 +282,30 @@ function groupByDay(t) {
 
 
 function getWebsiteRewards(){
-  $.getJSON("http://izotx.com/doc.php",(data)=>{
-    console.log(data);
+  return new Promise((a,r)=>{
+    let getUrl = 'http://izotx.com/service/il_get.php'
+    let setUrl = 'http://izotx.com/service/il_set.php'
+
+    $.getJSON(setUrl,(data)=>{
+
+    })
+
+    $.getJSON(getUrl, function(data){
+      if(data){
+        a(data)
+      }
+      else{
+        r();
+      }
+    });
   })
+}
+
+//NOTE: currently unused  keeping it here as a backup
+function getWebsiteRewardsFromOrigin(){
+  // $.getJSON("http://izotx.com/doc.php",(data)=>{
+  //   console.log(data);
+  // })
 
   return new Promise((a,r)=>{
     let origin = 'https://api.allorigins.win/get?url='
@@ -294,6 +320,7 @@ function getWebsiteRewards(){
 
 
 }
+
 
 function startProcessing() {
   let blocks = data.blocks
