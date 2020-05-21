@@ -56,7 +56,7 @@ const
 const
   outputFiles = {
     bundle : 'bundle.js',
-    vendor : 'vendor.js',
+    vendor : 'vendor2.js',
     css    : 'style.css',
   };
 

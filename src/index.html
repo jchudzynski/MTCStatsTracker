@@ -53,6 +53,7 @@
         }
       }
     </style>
+              <script src="https://kit.fontawesome.com/36199bb1db.js" crossorigin="anonymous"></script>
   </head>
   <body class="app">
     <!-- @TOC -->
@@ -184,37 +185,65 @@
         <main class='main-content bgc-grey-100'>
           <div id='mainContent'>
 
-                <div class="row">
+                <div class="row no-gutters">
 
-                  <!-- #Toatl Visits ==================== -->
-                  <div class='col-md-6'>
+                  <div class='col-md-8'>
                     <div class="layers bd bgc-white p-20">
                       <div class="layer w-100 mB-10">
-                        <h6 class="lh-1">Impacted Lives</h6>
+                        <h6 class="lh-1">Impact</h6>
                       </div>
-                      <table class="table table-bordered">
-                          <thead><tr><th>Today</th><th>Yesterday</th><th>All</th><th>Not Rewarded *</th></tr></thead>
+                      <table class="table table-bordered table-striped">
+                          <thead><tr><th>Impact</th><th>Today</th><th>Yesterday</th><th>All</th></tr></thead>
                          <tbody>
-                           <tr><td><span id="impacted_lives_today" class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15 bgc-green-50 c-green-500"></span></td>
-                             <td><span id="impacted_lives_yesterday" class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15 bgc-green-50 c-green-500"></span></td>
-                             <td> <span id="impacted_lives" class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15 bgc-green-50 c-green-500"> </span></td>
-                             <td> <span id="notRewarded" class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15 bgc-red-50 c-red-500"> </span></td>
+                           <tr>
+                             <td class="fw-800">Lives</td><td><span id="impacted_lives_today" class="d-ib lh-0 va-m"></span></td>
+                             <td><span id="impacted_lives_yesterday" class="d-ib lh-0 va-m "></span></td>
+                             <td> <span id="impacted_lives" class="d-ib lh-0 va-m fw-600"> </span></td>
                            </tr>
+                           <tr>
+                             <td class="fw-800">$MTC</td><td><span id="mtc_today" class="d-ib lh-0 va-m"></span></td>
+                             <td><span id="mtc_yesterday" class="d-ib lh-0 va-m "></span></td>
+                             <td> <span id="mtc_total" class="d-ib lh-0 va-m"> </span></td>
+                           </tr>
+                           <tr><td class="fw-800">Rate*</td><td id="conversion_today" class="fw-600"></td><td id="conversion_yesterday" class="fw-600"></td></td><td id="conversion_total" class="fw-600"></td></tr>
+
                          </tbody>
                       </table>
-                      *Patients contacted doc.com but not rewarded with MTC since 6th of May 2020
-
+                      *Percentage of calls that resulted in $MTC reward
                     </div>
 
                   </div>
+                  <div class="col-md-4">
+                      <div class="layers bd bgc-white p-10">
 
-                <div class="col-md-6">
-                  <div class="row">
+                        <div class="row w-100">
+                            <div class="layer w-100 mB-10">
+                              <h6 class="lh-1">General Information</h6>
+                            </div>
+                          <ul class="list-group w-100">
+                            <li class="list-group-item"><i class="fas fa-link w-10  p-5"></i><a href="https://doc.com/" target="_blank">Website</a> </li>
+                            <li class="list-group-item"><i class="fas fa-comments w-10 p-5"></i><a href="https://t.me/docEmotions" target="_blank">Chat</a> </li>
+                            <li class="list-group-item"><i class="fas fa-comments w-10 p-5" ></i><a href="https://t.me/docToken" target="_blank">Chat</a> </li>
+                            <li class="list-group-item"><i class="fas fa-search w-10 p-5"></i><a href="https://etherscan.io/token/0x905E337c6c8645263D3521205Aa37bf4d034e745" target="_blank">Explorer</a> </li>
+                          </ul>
+                        </div>
+                  </div>
+                </div>
+
+
+            </div>
+
+              <div class="row no-gutters">
+                <!-- <div class="col-md-12"> -->
+                  <!-- <div class="row no-gutters"> -->
                   <!-- #Wallets ==================== -->
+
+                  <div class="col-md-12">
+                    <div class="row no-gutters">
                   <div class='col-md-6'>
                     <div class="layers bd bgc-white p-20">
                       <div class="layer w-100 mB-10">
-                        <h6 class="lh-1">Wallets</h6>
+                        <h6 class="lh-1">Rewarded Wallets</h6>
                       </div>
                       <div class="layer w-100">
                         <div class="peers ai-sb fxw-nw">
@@ -248,16 +277,10 @@
                     </div>
                   </div>
 
-                <!-- </div> -->
-              <!-- </div>
-            </div> -->
-
-            <!-- <div class="row"> -->
-                  <!-- #MTC Awarded ==================== -->
                   <div class='col-md-6'>
                     <div class="layers bd bgc-white p-20">
                       <div class="layer w-100 mB-10">
-                        <h6 class="lh-1">MTC Awarded</h6>
+                        <h6 class="lh-1">Not Rewarded Calls (Since May 6th*)</h6>
                       </div>
                       <div class="layer w-100">
                         <div class="peers ai-sb fxw-nw">
@@ -265,7 +288,8 @@
                             <span id="sparklinedash4"></span>
                           </div>
                           <div class="peer">
-                            <span id="mtcRewardsSum" class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15 bgc-blue-50 c-blue-500"></span>
+                            <span id="notRewarded" class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15 bgc-blue-50 c-blue-500"></span>
+                            * Date when we started recording impacted lives
                           </div>
                         </div>
                       </div>
@@ -290,8 +314,11 @@
                       </div>
                     </div>
                   </div>
+
                 </div>
-              </div>
+                </div>
+                <!-- </div> -->
+              <!-- </div> -->
             </div>
                 <!-- end of row -->
               <div class="row">
@@ -315,7 +342,7 @@
               </div>
             </div>
 
-            <div class="row">
+            <div class="row no-gutters">
               <div class="col-md-6">
                 <!-- #Worldwide services ==================== -->
                 <div class="bd bgc-white">

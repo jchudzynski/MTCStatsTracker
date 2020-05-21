@@ -1,6 +1,6 @@
 {
   "name": "adminator",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "description": "HTML Admin Template",
   "scripts": {
@@ -46,6 +46,7 @@
     "webpack-dev-server": "^2.9.3"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.13.0",
     "babel-polyfill": "^6.26.0",
     "bootstrap": "^4.0.0",
     "bootstrap-datepicker": "^1.7.1",

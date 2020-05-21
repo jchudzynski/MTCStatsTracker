@@ -109,46 +109,58 @@ return result;
 }
 
 function processData(t) {
-    var rewards = filterRewards(t)
+    var allRewards = filterRewards(t)
     const reducer = (accumulator, element) => accumulator + parseInt(element.value);
     var sum = 0
     var gas = 0
     let n = Math.pow(10, 18);
-    for (var el of rewards){
+    for (var el of allRewards){
       sum += parseInt(el.value)/n
       gas += parseInt(el.gasUsed)  //* parseInt(el.gasPrice)
     }
     gas = 0.000000001 * gas
 
-    var all = groupByDay(rewards);
+    var all = groupByDay(allRewards);
     var groupedByDate = all[0]
     var allWallets = all[1]
 
     var rewardsData = getRewardsData(groupedByDate)
     var lastRewards = rewardsData.slice(-20).reverse(); //last 20 by day
-    var lastTransactions = rewards.slice(-20).reverse() // last 20
+    var lastTransactions = allRewards.slice(-20).reverse() // last 20
     var walletsData = getWalletsData(groupedByDate)
 
     displayRewardsGraph(rewardsData,walletsData);
     displayTables(lastRewards,lastTransactions);
 
-    $("#rewards").text(rewards.length.toLocaleString())
+
+    $("#rewards").text(allRewards.length.toLocaleString())
     $("#wallets").text(allWallets.size.toLocaleString())
-    $("#mtcRewardsSum").text(sum.toLocaleString() + " MTC")
+    $("#mtc_total").text(sum.toLocaleString() )
+    $("#mtc_today").text(lastRewards[0].y.toLocaleString())
+    $("#mtc_yesterday").text(lastRewards[1].y.toLocaleString())
     $("#gasUsedSum").text(gas.toLocaleString() + " ETH")
 
     getWebsiteRewards().then((data)=>{
+
       let doc_difference = data.all_lives - impacted_lives
-      let blockchain_difference = rewards.length - rewards_count
+      let blockchain_difference = allRewards.length - rewards_count
 
       $("#impacted_lives").text(data.all_lives.toLocaleString())
       $("#impacted_lives_yesterday").text(data.lives_yesterday.toLocaleString())
       $("#impacted_lives_today").text(data.lives_today.toLocaleString())
       $("#notRewarded").text((doc_difference - blockchain_difference).toLocaleString())
 
+      let diff_today = (lastRewards[0].y/data.lives_today) * 100
+      let diff_yesterday = (lastRewards[1].y/data.lives_yesterday) * 100
+      let diff_total = (sum/data.all_lives) * 100
+
+      // var arrow = (diff_today<diff_yesterday)?
+
+      $("#conversion_today").text(diff_today.toLocaleString()+"%")
+      $("#conversion_yesterday").text(diff_yesterday.toLocaleString()+"%")
+      $("#conversion_total").text(diff_total.toLocaleString()+"%")
+
     })
-
-
 }
 
 
@@ -173,7 +185,7 @@ function displayTables(e,t) {
 function displayRewardsGraph(t,w) {
 
     var e = document.getElementById("rewardsChart").getContext("2d");
-    
+
     new Chart(e, {
         type: "bar",
         data: {
@@ -286,9 +298,9 @@ function getWebsiteRewards(){
     let getUrl = 'http://izotx.com/service/il_get.php'
     let setUrl = 'http://izotx.com/service/il_set.php'
 
-    $.getJSON(setUrl,(data)=>{
-
-    })
+    // $.getJSON(setUrl,(data)=>{
+    //
+    // })
 
     $.getJSON(getUrl, function(data){
       if(data){
